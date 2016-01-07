@@ -1,0 +1,12 @@
+ check process php-fpm-process with pidfile /var/run/php5-fpm.pid
+   group web
+   group php-fpm
+   start program = "/etc/init.d/php5-fpm start"
+   stop program = "/etc/init.d/php5-fpm stop"
+   if 5 restarts with 5 cycles then timeout
+   depend php-fpm-process_rc
+
+ check file php-fpm-process_rc with path /etc/init.d/php5-fpm
+   group php-fpm
+   include /etc/monit/templates/rootbin
+

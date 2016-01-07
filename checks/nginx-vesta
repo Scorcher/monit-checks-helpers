@@ -1,0 +1,19 @@
+ check process nginx-vesta with pidfile /var/run/vesta-nginx.pid
+   group vesta
+   group nginx
+   start program = "/etc/init.d/vesta start"
+   stop program = "/etc/init.d/vesta stop"
+   if failed
+      port 8083
+      protocol https
+      request "/login/"
+      status = 200
+      with ssl options {verify: disable}
+      then restart
+   if 5 restarts with 5 cycles then timeout
+   depend nginx-vesta_rc
+
+ check file nginx-vesta_rc with path /etc/init.d/vesta
+   group nginx
+   include /etc/monit/templates/rootbin
+
