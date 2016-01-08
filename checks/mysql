@@ -1,0 +1,18 @@
+ check process mysql with pidfile /var/run/mysqld/mysqld.pid
+   group db
+   group mysql
+   start program = "/etc/init.d/mysql start"
+   stop program = "/etc/init.d/mysql stop"
+   include /etc/monit/extra/mysql_extra
+   if 5 restarts with 5 cycles then timeout
+   depend mysql_bin
+   depend mysql_rc
+
+ check file mysql_bin with path /usr/sbin/mysqld
+   group mysql
+   include /etc/monit/templates/rootbin
+
+ check file mysql_rc with path /etc/init.d/mysql
+   group mysql
+   include /etc/monit/templates/rootbin
+

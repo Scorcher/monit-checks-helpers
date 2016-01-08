@@ -4,7 +4,7 @@
    start program = "/etc/init.d/exim4 start"
    stop  program = "/etc/init.d/exim4 stop"
    if failed port 25 protocol smtp then restart
-   if failed port 465 type tcpssl sslauto protocol smtps with ssl options {verify: disable} then restart
+   if failed port 465 and expect "^.+" type tcpssl sslauto protocol smtps with ssl options {verify: disable} then restart
 #   if failed port 587 type tcpssl sslauto protocol smtps with ssl options {verify: disable} then restart
    if 5 restarts within 5 cycles then timeout
    depend exim4_bin

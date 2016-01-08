@@ -1,0 +1,18 @@
+ check process memcached with pidfile /var/run/memcached.pid
+   group memcached
+   start program = "/etc/init.d/memcached start"
+   stop  program = "/etc/init.d/memcached stop"
+   if failed port 11211 then restart
+   include /etc/monit/extra/memcached_extra
+   if 4 restarts within 4 cycles then timeout
+   depend memcached_bin
+   depend memcached_rc
+
+ check file memcached_bin with path /usr/bin/memcached
+   group memcached
+   include /etc/monit/templates/rootbin
+
+ check file memcached_rc with path /etc/init.d/memcached
+   group memcached
+   include /etc/monit/templates/rootbin
+

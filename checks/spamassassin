@@ -1,0 +1,19 @@
+ check process spamassassin with pidfile /var/run/spamd.pid
+   group mail
+   group spamassassin
+   start program = "/etc/init.d/spamassassin start"
+   stop  program = "/etc/init.d/spamassassin stop"
+   if failed port 783 then restart
+   include /etc/monit/extra/spamassassin_extra
+   if 4 restarts within 4 cycles then timeout
+   depend spamassassin_bin
+   depend spamassassin_rc
+
+ check file spamassassin_bin with path /usr/sbin/spamd
+   group spamassassin
+   include /etc/monit/templates/rootbin
+
+ check file spamassassin_rc with path /etc/init.d/spamassassin
+   group spamassassin
+   include /etc/monit/templates/rootbin
+

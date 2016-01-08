@@ -3,6 +3,7 @@
    group php-fpm
    start program = "/etc/init.d/php5-fpm start"
    stop program = "/etc/init.d/php5-fpm stop"
+   include /etc/monit/extra/php-fpm-process_extra
    if 5 restarts with 5 cycles then timeout
    depend php-fpm-process_rc
 

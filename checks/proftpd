@@ -1,0 +1,19 @@
+ check process proftpd with pidfile /var/run/proftpd.pid
+   group system
+   group proftpd
+   start program = "/etc/init.d/proftpd start"
+   stop  program = "/etc/init.d/proftpd stop"
+   if failed port 21 then restart
+   include /etc/monit/extra/proftpd_extra
+   if 4 restarts within 4 cycles then timeout
+   depend proftpd_bin
+   depend proftpd_rc
+
+ check file proftpd_bin with path /usr/sbin/proftpd
+   group proftpd
+   include /etc/monit/templates/rootbin
+
+ check file proftpd_rc with path /etc/init.d/proftpd
+   group proftpd
+   include /etc/monit/templates/rootbin
+

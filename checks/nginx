@@ -7,6 +7,7 @@
      status = 200
      content = "Active connections:"
      then restart
+   include /etc/monit/extra/nginx_extra
    if 5 restarts with 5 cycles then timeout
    depend nginx_bin
    depend nginx_rc
