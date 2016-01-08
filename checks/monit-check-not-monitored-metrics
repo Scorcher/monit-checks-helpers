@@ -1,0 +1,5 @@
+check program not-monitored-metrics
+  path /usr/local/monit-checks-helpers/helpers/monit-check-not-monitored-metrics
+  with timeout 3 seconds
+  group monit
+  if status != 0 for 2 cycles then alert

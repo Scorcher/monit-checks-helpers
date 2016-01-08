@@ -1,0 +1,8 @@
+check system localhost
+  group resources
+  if cpu(wait) > 10% for 3 cycles then alert
+  if cpu(system) > 30% for 3 cycles then alert
+  if cpu > 90% for 3 cycles then alert
+  if loadavg(5min) > 5 then alert
+  if memory > 90% then alert
+  

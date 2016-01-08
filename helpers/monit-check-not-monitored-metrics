@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+cnt=`LANG=C monit summary | grep -iP "^(Process|File|FIFO|Filesystem|Directory|Remote Host|System|Program|Network) '[^']+'[\s\t]+(\w[\w\s\t]+)$" | sed -r "s,^(Process|File|FIFO|Filesystem|Directory|Remote Host|System|Program|Network) '[^']*'[ \t]+(.*)$,\\2,g" | grep -P "^(Unmonitored|Timeout)$" | wc -l`
+
+if [ $cnt -gt 0 ]; then
+	echo "Found ${cnt} not monitored metrics" >&2
+	exit 1
+fi
+
+exit 0
+

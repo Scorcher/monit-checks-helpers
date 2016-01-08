@@ -1,0 +1,5 @@
+check host yandex.dns address 77.88.8.8
+  if failed ping4 then alert
+
+check host google.dns address 8.8.8.8
+  if failed ping4 then alert
